@@ -1,2 +1,2 @@
-Django>=3.2,<4.0
-pyinstaller>=5.0
+Django==3.2.5
+pyinstaller==5.0 
