@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:  # This enables the manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,17 +22,25 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install dependencies
+    - name: Create and activate virtual environment
       run: |
         python -m venv venv
         venv\Scripts\activate
-        pip install --upgrade pip
-        pip install -r requirements.txt
+
+    - name: Upgrade pip
+      run: |
+        venv\Scripts\pip install --upgrade pip
+      shell: pwsh
+
+    - name: Install dependencies
+      run: |
+        venv\Scripts\pip install -r requirements.txt
+      shell: pwsh
 
     - name: Build with PyInstaller
       run: |
-        venv\Scripts\activate
-        pyinstaller --onefile pyinstaller.spec
+        venv\Scripts\pyinstaller --onefile pyinstaller.spec
+      shell: pwsh
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
