@@ -26,20 +26,21 @@ jobs:
       run: |
         python -m venv venv
         venv\Scripts\activate
+      shell: pwsh
 
     - name: Upgrade pip
       run: |
-        venv\Scripts\pip install --upgrade pip
+        venv\Scripts\python -m pip install --upgrade pip
       shell: pwsh
 
     - name: Install dependencies
       run: |
-        venv\Scripts\pip install -r requirements.txt
+        venv\Scripts\python -m pip install -r requirements.txt
       shell: pwsh
 
     - name: Build with PyInstaller
       run: |
-        venv\Scripts\pyinstaller --onefile pyinstaller.spec
+        venv\Scripts\python -m pyinstaller --onefile pyinstaller.spec
       shell: pwsh
 
     - name: Upload artifact
